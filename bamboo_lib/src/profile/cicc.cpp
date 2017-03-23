@@ -1,9 +1,9 @@
 
-#include <llvm/Constants.h>
-#include <llvm/Instructions.h>
-#include <llvm/LLVMContext.h>
-#include <llvm/Module.h>
-#include "llvm/PassManager.h"
+#include <llvm/IR/Constants.h>
+#include <llvm/IR/Instructions.h>
+#include <llvm/IR/LLVMContext.h>
+#include <llvm/IR/Module.h>
+#include "llvm/IR/LegacyPassManager.h"
 #include <llvm/Bitcode/ReaderWriter.h>
 #include <llvm/Support/MemoryBuffer.h>
 #include <llvm/Support/raw_ostream.h>
@@ -61,7 +61,7 @@ static long bambooIndex = 1;
 static void writeIrToFile(Module* module, const char* filePath){
 	//errs() << "Dumping IR file ... \n";
 	string err = "";
-	raw_fd_ostream outputStream(filePath, err, 0);
+	raw_fd_ostream outputStream(filePath, err, llvm::sys::fs::F_None);
 	WriteBitcodeToFile(module, outputStream);
 	outputStream.flush();
 }
